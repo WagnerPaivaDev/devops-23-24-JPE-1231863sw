@@ -208,7 +208,6 @@ public class EmployeeTest {
         String description = "ring bearer";
         int jobYears = 4;
         String email = null;
-
         String exceptionMessage = "Invalid input";
 
         //Act + Assert
@@ -229,7 +228,6 @@ public class EmployeeTest {
         String description = "ring bearer";
         int jobYears = 4;
         String email = "";
-
         String exceptionMessage = "Invalid input";
 
         //Act + Assert
@@ -247,9 +245,7 @@ public class EmployeeTest {
         String description = "ring bearer";
         int jobYears = 4;
         String email = "frodobagginshotmail.com";
-
         String exceptionMessage = "Invalid input";
-
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Employee(firstName, lastName, description, jobYears,email);
