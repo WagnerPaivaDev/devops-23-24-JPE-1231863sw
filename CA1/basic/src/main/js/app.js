@@ -37,33 +37,12 @@ class EmployeeList extends React.Component{
 		return (
 			<table>
 				<tbody>
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Description</th>
-					</tr>
-					{employees}
-				</tbody>
-			</table>
-		)
-	}
-}
-// end::employee-list[]
-
-// tag::employee-list[]
-class EmployeeList extends React.Component{
-	render() {
-		const employees = this.props.employees.map(employee =>
-			<Employee key={employee._links.self.href} employee={employee}/>
-		);
-		return (
-			<table>
-				<tbody>
 				<tr>
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Description</th>
 					<th>Job Years</th>
+					<th>Email</th>
 				</tr>
 				{employees}
 				</tbody>
@@ -82,6 +61,7 @@ class Employee extends React.Component{
 				<td>{this.props.employee.lastName}</td>
 				<td>{this.props.employee.description}</td>
 				<td>{this.props.employee.jobYears}</td>
+				<td>{this.props.employee.email}</td>
 			</tr>
 		)
 	}
