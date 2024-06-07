@@ -16,29 +16,37 @@
 package com.greglturnquist.payroll;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Greg Turnquist
  */
 // tag::code[]
-@Entity // <1>
+@Entity
 public class Employee {
 
-	private @Id @GeneratedValue Long id; // <2>
+	private @Id @GeneratedValue Long id;
 	private String firstName;
 	private String lastName;
 	private String description;
+	private int jobYears;
 
-	private Employee() {}
 
-	public Employee(String firstName, String lastName, String description) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.description = description;
+	private Employee() {
+	}
+
+	public Employee(String firstName, String lastName, String description, int jobYears) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setDescription(description);
+		setJobYears(jobYears);
+
 	}
 
 	@Override
@@ -47,15 +55,17 @@ public class Employee {
 		if (o == null || getClass() != o.getClass()) return false;
 		Employee employee = (Employee) o;
 		return Objects.equals(id, employee.id) &&
-			Objects.equals(firstName, employee.firstName) &&
-			Objects.equals(lastName, employee.lastName) &&
-			Objects.equals(description, employee.description);
+				Objects.equals(firstName, employee.firstName) &&
+				Objects.equals(lastName, employee.lastName) &&
+				Objects.equals(description, employee.description) &&
+				jobYears == employee.jobYears;
+
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description);
+		return Objects.hash(id, firstName, lastName, description, jobYears);
 	}
 
 	public Long getId() {
@@ -71,6 +81,8 @@ public class Employee {
 	}
 
 	public void setFirstName(String firstName) {
+		if (firstName == null || firstName.isEmpty())
+			throw new IllegalArgumentException("First name must not be null or empty.");
 		this.firstName = firstName;
 	}
 
@@ -79,6 +91,8 @@ public class Employee {
 	}
 
 	public void setLastName(String lastName) {
+		if (lastName == null || lastName.isEmpty())
+			throw new IllegalArgumentException("Last name must not be null or empty.");
 		this.lastName = lastName;
 	}
 
@@ -87,17 +101,30 @@ public class Employee {
 	}
 
 	public void setDescription(String description) {
+		if (description == null || description.isEmpty())
+			throw new IllegalArgumentException("Description must not be null or empty.");
 		this.description = description;
+	}
+
+	public int getJobYears() {
+		return jobYears;
+	}
+
+	public void setJobYears(int jobYears) {
+		if (jobYears < 0)
+			throw new IllegalArgumentException("Job years must be greater than 0.");
+		this.jobYears = jobYears;
 	}
 
 	@Override
 	public String toString() {
 		return "Employee{" +
-			"id=" + id +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			", description='" + description + '\'' +
-			'}';
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", description='" + description + '\'' +
+				", jobYears=" + jobYears + '\'' +
+
+				'}';
 	}
 }
-// end::code[]
