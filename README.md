@@ -516,31 +516,26 @@ public class EmployeeTest {
 ```bash
 # Run the app
 ./mvnw spring-boot:run
-```
+```Is necessary to run the app in the terminal, but exist a problem with the build Maven and MPN, so I can't run the app.
 
 - Accessing the app at http://localhost:8080/ and checking the new feature:
   ![img_1.png](img_1.png)
+  ```
 
 - Commit the changes and create a new tag for the new feature:
 
-```
-# Add and commit changes
-git add .
+```bash
+    git add .
+    git commit -m "Add jobYears field to Employee entity."
+    git push origin main
+    git tag v1.2.0
+    git push origin v1.2.0
+```    
 
-# Commit the changes
-git commit -m "#1 and #2 issues"
+- Mark the repository with the 'ca1-part1' tag
 
-//added untrackedfiles 
-# Tag the new feature as v1.2.0
-git tag v1.2.0
-
-# Push the tag to the server
-git push origin v1.2.0
-
-# Mark the repository with the 'ca1-part1' tag
+```bash
 git tag ca1-part1
-
-# Push the tag to the server
 git push origin ca1-part1
 ```
 
@@ -609,22 +604,18 @@ Based on the analysis, the following steps are identified to fulfill the require
 
 1. Publish Stable Versions:
 
-    - Use the master branch to publish stable versions of the application.
+- Use the master branch to publish stable versions of the application.
 
-```
-   # Ensure you are on the master branch
+```bash
 git checkout main
-
-# Confirm you have the latest changes
 git pull origin main
 ```
 
 2. Develop New Features in Branches:
 
-    - Create a branch named 'email-field'.
+- Create a branch named 'email-field'.
 
-```
-# Create a branch named 'email-field'
+```bash
 git checkout -b email-field
 ```
 
@@ -632,17 +623,15 @@ git checkout -b email-field
 
 ```java
    public class Employee {
-
-    //Attributes
+    
     private @Id
-    @GeneratedValue Long id; // <2>
+    @GeneratedValue Long id; 
     private String firstName;
     private String lastName;
     private String description;
     private int jobYears;
     private String email;
-
-    //Constructor
+    
     public Employee(String firstName, String lastName, String description, int jobYears, String email) {
         setFirstName(firstName);
         setLastName(lastName);
@@ -650,8 +639,7 @@ git checkout -b email-field
         setJobYears(jobYears);
         setEmail(email);
     }
-
-    //Overrides
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -682,8 +670,7 @@ git checkout -b email-field
                 ", email=" + email +
                 '}';
     }
-
-    //Getters and Setters
+    
     public String getEmail() {
         return email;
     }
@@ -757,7 +744,7 @@ class Employee extends React.Component {
 // end::employee[]
 ````
 
-- Implement unit tests for creating employees and validating their attributes in the EmployeeRepositoryTests.java file.
+- Implement unit tests for creating employees and validating their attributes in the EmployeeTest.java file.
 
 ```java
     //Tests 
@@ -997,24 +984,19 @@ public class EmployeeTest {
 }
 
 ````
+```bash
+git add .
+git commit -m "Add support email field to Employee entity, and unit tests issues closes#6"
+git push origin email-field
+```
 
 - Merge the feature with the master and create a new tag (v1.3.0):
 
-```
-# Commit the changes
-git add .
-git commit -m "#4 - Added tests to email field validation"
+```bash
 
-# Switch to the master branch
 git checkout main
-
-# Merge the 'email-field' branch with the master
 git merge email-field
-
-# Tag the new feature as v1.3.0
-git tag v1.3.0
-
-# Push the tag to the server
+git tag v1.3.0 
 git push origin v1.3.0
 
 ````
@@ -1026,8 +1008,7 @@ I should have used the command "git merge --no-ff". This way, GIt would create a
     - Create a branch called 'fix-invalid-email' to fix the issue of the server only accepting employees with a valid
       email.
 
-```
-# Create a branch called 'fix-invalid-email'
+```bash
 git checkout -b fix-invalid-email
 ```
 
@@ -1049,40 +1030,33 @@ public void setEmail(String email) {
     this.email = email;
 }
 `````
+```bash
+git add .
+git commit -m "#5 - Fix invalid email and respective tests"
+git push origin fix-invalid-email
+
+```
 
 - Run the app and debug the server and client parts of the solution:
     ```bash
     # Run the app
     ./mvnw spring-boot:run
     ```
+  The system don´t run, because didan´t find the Maven and Npm.
 
 - Access the app at http://localhost:8080/ and check the new feature:
+-  The system don´t run, because didan´t find the Maven and Npm.
 
 ![img_2.png](img_2.png)
 
 - Merge the fix with the master and create a new tag (v1.3.1):
 
-```
-# Commit the changes
-git add .
-git commit -m "#5 - Fix invalid email and respective tests"
-
-# Switch to the master branch
+```bash
 git checkout main
-
-# Merge the 'fix-invalid-email' branch with the master
 git merge fix-invalid-email
-
-# Tag the fix as v1.3.1
 git tag v1.3.1
-
-# Push the tag to the server
 git push origin v1.3.1
-
-# Mark the repository with the 'ca1-part2' tag
 git tag ca1-part2
-
-# Push the tag to the server
 git push origin ca1-part2
 
 ````
@@ -1230,3 +1204,4 @@ Both Git and Subversion provide powerful version control capabilities, but each 
 The Final Verdict
 
 Both Git and Subversion have their merits and limitations. Git's distributed nature and powerful branching make it ideal for complex development workflows and large teams, despite its learning curve. On the other hand, Subversion's simplicity and centralized model offer a more accessible option for smaller teams or those transitioning from traditional version control systems, although it may lack some of Git's advanced features and performance optimizations.
+--------x----------
