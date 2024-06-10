@@ -75,3 +75,12 @@ task backup(type: Copy) {
     from 'src'
     into 'backup'
 }
+
+task zipFile(type: Zip) {
+    from 'src'
+    include '**/*'
+    archiveFileName = 'src.zip'
+    destinationDir = file("archives")
+}
+
+
