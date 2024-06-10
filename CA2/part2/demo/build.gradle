@@ -4,6 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 	id "org.siouan.frontend-jdk17" version "8.0.0"
 	id 'com.github.node-gradle.node' version '3.1.1'
+
 }
 
 group = 'com.example'
@@ -24,14 +25,25 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.example:my-library:1.0.0'
+	testImplementation 'junit:junit:4.12'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+
+
 }
 frontend {
 	nodeVersion = "16.20.2"
 	assembleScript = "run build"
 	cleanScript = "run clean"
 	checkScript = "run check"
+}
+
+task copyJarToDist(type: Copy) {
+	from 'build/libs/'
+	into 'dist'
+	include '*.jar'
 }
