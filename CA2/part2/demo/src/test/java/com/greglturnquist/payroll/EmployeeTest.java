@@ -1,61 +1,28 @@
-import com.greglturnquist.payroll.Employee;
+package com.greglturnquist.payroll;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import static org.junit.Assert.assertEquals;
-
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
-import java.util.Set;
-
-import org.gradle.api.Project;
-import org.gradle.api.file.RegularFile;
-import org.gradle.api.plugins.BasePlugin;
-import org.gradle.api.publish.plugins.PublishingPlugin;
-import org.gradle.language.base.plugins.LifecycleBasePlugin;
-import org.gradle.testfixtures.ProjectBuilder;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.AssembleTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.CheckTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.CleanTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.FrontendExtension;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallNodeTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallPackageManagerTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.PublishTask;
-import org.siouan.frontendgradleplugin.infrastructure.gradle.ResolvePackageManagerTask;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-
-public class EmployeeTest {
-
+class EmployeeTest {
     /**
      * Test of Employee constructor, of class Employee.
      */
     @Test
 
-   void testEmployee() {
+    public void testEmployee() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
-
+        String email = "isep@gmail.com";
 
         //Act
-        Employee employee = new Employee(firstName, lastName, description, jobYears,email);
+        Employee employee = new Employee(firstName, lastName, description, jobYears, email);
 
         //Assert
         assertNotNull(employee);
@@ -71,10 +38,10 @@ public class EmployeeTest {
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
 
         //Act
-        Employee employee = new Employee(firstName, lastName, description, jobYears,email);
+        Employee employee = new Employee(firstName, lastName, description, jobYears, email);
 
         //Assert
         assertEquals(firstName, employee.getFirstName());
@@ -87,19 +54,19 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when first name is null.
      */
     @Test
-    public void testExceptionNullFirstName () {
+    public void testExceptionNullFirstName() {
         //Arrange
         String firstName = null;
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
 
         String exceptionMessage = "First name must not be null or empty.";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -108,19 +75,19 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when first name is empty.
      */
     @Test
-    public void testExceptionEmptyFirstName (){
+    public void testExceptionEmptyFirstName() {
         //Arrange
         String firstName = "";
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
 
         String exceptionMessage = "First name must not be null or empty.";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -129,19 +96,20 @@ public class EmployeeTest {
      * est of Employee if exception is thrown, of class Employee, when last name is null.
      */
     @Test
-    public void testExceptionNullLastName () {
+    public void testExceptionNullLastName() {
         //Arrange
         String firstName = "Frodo";
         String lastName = null;
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
+
 
         String exceptionMessage = "Last name must not be null or empty.";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -150,19 +118,19 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when last name is empty.
      */
     @Test
-    public void testExceptionEmptyLastName () {
+    public void testExceptionEmptyLastName() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
 
         String exceptionMessage = "Last name must not be null or empty.";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -171,13 +139,14 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when description is null.
      */
     @Test
-    public void testExceptionNullDescription () {
+    public void testExceptionNullDescription() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = null;
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
+
 
         String exceptionMessage = "Description must not be null or empty.";
 
@@ -192,13 +161,14 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when description is empty.
      */
     @Test
-    public void testExceptionEmptyDescription () {
+    public void testExceptionEmptyDescription() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "";
         int jobYears = 4;
-        String email = "frodobaggins@hotmail.com";
+        String email = "isep@gmail.com";
+
 
         String exceptionMessage = "Description must not be null or empty.";
 
@@ -213,19 +183,20 @@ public class EmployeeTest {
      * Test of Employee if exception is thrown, of class Employee, when jobYears is lower than 0.
      */
     @Test
-    public void testExceptionNullJobYearsLowerThanZero () {
+    public void testExceptionNullJobYearsLowerThanZero() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "ring bearer";
-        int jobYears = -15;
-        String email = "frodobaggins@hotmail.com";
+        int jobYears = -1;
+        String email = "isep@gmail.com";
+
 
         String exceptionMessage = "Job years must be greater than 0.";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -235,18 +206,19 @@ public class EmployeeTest {
      */
 
     @Test
-    public void testExceptionNullEmail () {
+    public void testExceptionNullEmail() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
         String email = null;
+
         String exceptionMessage = "Invalid input";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
@@ -254,36 +226,41 @@ public class EmployeeTest {
     /**
      * Test of Employee if exception is thrown, of class Employee, when email is empty.
      */
+
     @Test
-    public void testExceptionEmptyEmail () {
+    public void testExceptionEmptyEmail() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
         String email = "";
+
         String exceptionMessage = "Invalid input";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
 
     @Test
-    public void testExceptionInvalidEmailWithoutAt () {
+    public void testIfEmailIsValid() {
         //Arrange
         String firstName = "Frodo";
         String lastName = "Baggins";
         String description = "ring bearer";
         int jobYears = 4;
-        String email = "frodobagginshotmail.com";
+        String email = "invalid.com";
+
         String exceptionMessage = "Invalid input";
+
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee(firstName, lastName, description, jobYears,email);
+            new Employee(firstName, lastName, description, jobYears, email);
         });
         assertEquals(exceptionMessage, exception.getMessage());
     }
+
 }
